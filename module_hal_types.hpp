@@ -16,5 +16,6 @@
 typedef uint32_t (*GetTick)(void);
 typedef bool (*IsElapsed)(uint32_t timeout, uint32_t tick);
 typedef void (*IoCtrl)(bool state);
+typedef bool (*IoRead)(void);
 
 #endif /* __MODULE_HAL_LINK_TYPES_H__ */

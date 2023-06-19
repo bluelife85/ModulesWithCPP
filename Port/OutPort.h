@@ -1,5 +1,5 @@
 /**
- * @file LED.h
+ * @file OutPort.h
  * @author Kyungwoo Min (bluelife85@naver.com)
  * @brief 
  * @version 0.1
@@ -8,21 +8,22 @@
  * @copyright Copyright (c) 2023
  * 
  */
-#ifndef __MODULE_LED_H__
-#define __MODULE_LED_H__
+#ifndef __MODULE_OUT_PORT_H__
+#define __MODULE_OUT_PORT_H__
 
 #include "../module_hal_types.hpp"
 
-class LED
+class OutPort
 {
 public:
-   LED(IoCtrl _io, GetTick _getTick, IsElapsed _isElapsed)
+   OutPort(IoCtrl _io, GetTick _getTick, IsElapsed _isElapsed)
    {
       io = _io;
       getTick = _getTick;
       isElapsed = _isElapsed;
    }
-   LED(IoCtrl _io, GetTick _getTick, IsElapsed _isElapsed, uint32_t _timeout)
+   
+   OutPort(IoCtrl _io, GetTick _getTick, IsElapsed _isElapsed, uint32_t _timeout)
    {
       io = _io;
       getTick = _getTick;
@@ -70,4 +71,4 @@ private:
    bool toggle;
 };
 
-#endif /* __MODULE_LED_H__ */
+#endif /* __MODULE_OUT_PORT_H__ */
