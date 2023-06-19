@@ -13,19 +13,29 @@
 
 #include "../module_hal_types.hpp"
 
+/**
+ * @brief data type to initialize InPort class.
+ */
 struct InPortInit
 {
-   IoRead read;
-   uint32_t timeout;
-   GetTick getTick;
-   IsElapsed isElapsed;
-   InPort::PullState pull;
-   bool hasLongState;
+   IoRead read; /**< @see IoCtrl */
+   uint32_t timeout; /**< the time (ms) for distinguishing between long button and short button among input functions.*/
+   GetTick getTick; /**< @see GetTick */
+   IsElapsed isElapsed; /**< @see IsElapsed */
+   InPort::PullState pull; /**< When there is no input, it determines whether it is high-state or low-state. */
+   bool hasLongState; /**< Depending on the input time, it determines whether long and short need to be distinguished. */
 };
 
+/**
+ * @brief A class that creates an object that is only input 
+ *        among the functions of GPIO.
+ */
 class InPort
 {
 public:
+   /**
+    * @brief the input result. 
+    */
    enum State
    {
       NONE = 0,
@@ -33,13 +43,19 @@ public:
       LONG,
       ON_PUSH
    };
-
+   /**
+    * @brief When there is no input, it determines whether
+    *        it is high-state or low-state.
+    */
    enum PullState
    {
       DOWN,
       UP
    };
-
+   /**
+    * @brief Construct a new InPort object
+    * @param init @see InPortInit
+    */
    InPort(struct InPortInit& init)
    {
       read = init.read;
@@ -52,8 +68,12 @@ public:
       }
       hasLongState = init.hasLongState;
    }
-
-   State readState() const
+   /**
+    * @brief read the pin state.
+    * @return State @see InPort::State
+    * @note 
+    */
+   State readState()
    {
       bool io = read();
       bool comp = (pull == UP) ? (false) : (true);

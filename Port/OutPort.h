@@ -13,16 +13,31 @@
 
 #include "../module_hal_types.hpp"
 
+/**
+ * @brief Among the functions of GPIO, a class for creating an object 
+ *        that serves only as an output.
+ */
 class OutPort
 {
 public:
-   OutPort(IoCtrl _io, GetTick _getTick, IsElapsed _isElapsed)
+   /**
+    * @brief Constructor for using only general output.
+    * @param _io @see IoCtrl
+    * @note When creating an object using this constructor,
+    *       toggle by interval is not supported.
+    */
+   OutPort(IoCtrl _io)
    {
       io = _io;
-      getTick = _getTick;
-      isElapsed = _isElapsed;
    }
-   
+   /**
+    * @brief A constructor that supports toggle mode.
+    * 
+    * @param _io @see IoCtrl
+    * @param _getTick @see GetTick
+    * @param _isElapsed @see IsElapsed
+    * @param _timeout interval timeout in ms.
+    */
    OutPort(IoCtrl _io, GetTick _getTick, IsElapsed _isElapsed, uint32_t _timeout)
    {
       io = _io;
@@ -31,25 +46,36 @@ public:
       timeout = _timeout;
       mode(true);
    }
-
-   void setTimeout(uint32_t _timeout) const
+   /**
+    * @brief Set the Timeout object
+    * @param _timeout interval timeout in ms.
+    */
+   void setTimeout(uint32_t _timeout)
    {
       timeout = _timeout;
    }
-
-   void control(bool _state) const
+   /**
+    * @brief controls the hardware GPIO.
+    * @param _state @see IoCtrl
+    */
+   void control(bool _state)
    {
       io(_state);
       state = _state;
    }
-
-   void mode(bool _toggle) const
+   /**
+    * @brief decides whether enable toggle mode or not.
+    * @param _toggle true or false.
+    */
+   void mode(bool _toggle)
    {
       tick = getTick();
       toggle = _toggle;
    }
-
-   void toggle() const
+   /**
+    * @brief execute the toggle mode.
+    */
+   void toggle()
    {
       if(toggle && (timeout != 0))
       {
