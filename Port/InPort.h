@@ -11,7 +11,7 @@
 #ifndef __MODULE_IN_PORT_H__
 #define __MODULE_IN_PORT_H__
 
-#include "module_hal_types.hpp"
+#include "../module_hal_types.hpp"
 
 struct InPortInit
 {
