@@ -1,7 +1,7 @@
 /**
  * @file Hysteresis.h
  * @author Kyungwoo Min (bluelife85@naver.com)
- * @brief 
+ * @brief software hysteresis  module.
  * @version 0.1
  * @date 2023-06-19
  * 
@@ -13,17 +13,23 @@
 
 #include "../module_hal_types.hpp"
 
+/**
+ * @brief A structure that connects HAL implementations.
+ */
 struct HysteresisHAL
 {
-   GetTick getTick;
-   IsElapsed isElapsed;
+   GetTick getTick; /**< @see GetTick */
+   IsElapsed isElapsed; /**< @see IsElapsed */
 };
 
+/**
+ * @brief A structure to configure the hysteresis object.
+ */
 struct HysteresisInit_t
 {
-   uint32_t upperTimeout;
-   uint32_t lowerTimeout;
-   struct HysteresisHAL hal;
+   uint32_t upperTimeout; /**< upper area timeout */
+   uint32_t lowerTimeout; /**< lower area timeout */
+   struct HysteresisHAL hal; /**< HAL layer */
 };
 
 enum class HysState
